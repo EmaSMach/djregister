@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Users - Simple List{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div>
+        <h1 class="mt-3">Users</h1>
+    </div>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Address</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    {% if object_list %}
+        {% for user in object_list %}
+
+            <tbody>
+                <tr>
+                    <td>{{ user }}</td>
+                    <td>{% for address in user.address.all %}
+                        <ul>
+                            <li>{{ address }}</li>
+                        </ul>
+                        {% endfor %}
+                    </td>
+                    <td><a href="{% url 'profiles:user_detail' user.id%}">See Details</a></td>
+                </tr>
+            </tbody>
+
+        {% endfor %}
+    {% endif %}
+</table>
+
+</div>
+
+<link rel="stylesheet" href="{% static 'profiles/css/users_lst.css' %}">
+
+<style>
+table tbody tr td ul {
+    list-style: none;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+</style>
+
+{% endblock %}
